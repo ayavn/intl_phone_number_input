@@ -9,18 +9,15 @@ class MyApp extends StatelessWidget {
     var darkTheme = ThemeData.dark().copyWith(primaryColor: Colors.blue);
 
     return MaterialApp(
-      title: 'Demo',
-      themeMode: ThemeMode.dark,
+      title: 'Demo 3',
+      themeMode: ThemeMode.light,
       darkTheme: darkTheme,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Scaffold(
-          appBar: AppBar(title: Text('Demo')),
-          body: MyHomePage(),
-        ),
+      home: Scaffold(
+        appBar: AppBar(title: Text('Demo')),
+        body: MyHomePage(),
       ),
     );
   }
@@ -40,54 +37,76 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      child: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            InternationalPhoneNumberInput(
-              onInputChanged: (PhoneNumber number) {
-                print(number.phoneNumber);
-              },
-              onInputValidated: (bool value) {
-                print(value);
-              },
-              selectorConfig: SelectorConfig(
-                selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+    return Scaffold(
+      body: Form(
+        key: formKey,
+        child: Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              InternationalPhoneNumberInput(
+                height: 50,
+                onInputChanged: (PhoneNumber number) {
+                  print(number.phoneNumber);
+                },
+                onInputValidated: (bool value) {
+                  print(value);
+                },
+                selectorConfig: SelectorConfig(
+                  selectorType: PhoneInputSelectorType.DIALOG,
+                ),
+                ignoreBlank: false,
+                autoValidateMode: AutovalidateMode.disabled,
+                selectorTextStyle: TextStyle(color: Colors.black),
+                initialValue: number,
+                textFieldController: controller,
+                formatInput: false,
+                backgroundColor: Colors.transparent,
+                keyboardType: TextInputType.numberWithOptions(
+                    signed: true, decimal: true),
+                inputBorder: OutlineInputBorder(),
+                spaceBetweenSelectorAndTextField: 10,
+                onSaved: (PhoneNumber number) {
+                  print('On Saved: $number');
+                },
+                // searchBoxDecoration: InputDecoration(
+                //   enabledBorder: OutlineInputBorder(
+                //     borderRadius: BorderRadius.circular(10),
+                //   ),
+                //   border: OutlineInputBorder(
+                //     borderRadius: BorderRadius.circular(10),
+                //   ),
+                //   errorBorder: OutlineInputBorder(
+                //     borderRadius: BorderRadius.circular(10),
+                //   ),
+                //   focusedBorder: OutlineInputBorder(
+                //     borderRadius: BorderRadius.circular(10),
+                //   ),
+                //   disabledBorder: OutlineInputBorder(
+                //     borderRadius: BorderRadius.circular(10),
+                //   ),
+                // ),
               ),
-              ignoreBlank: false,
-              autoValidateMode: AutovalidateMode.disabled,
-              selectorTextStyle: TextStyle(color: Colors.black),
-              initialValue: number,
-              textFieldController: controller,
-              formatInput: false,
-              keyboardType:
-                  TextInputType.numberWithOptions(signed: true, decimal: true),
-              inputBorder: OutlineInputBorder(),
-              onSaved: (PhoneNumber number) {
-                print('On Saved: $number');
-              },
-            ),
-            ElevatedButton(
-              onPressed: () {
-                formKey.currentState?.validate();
-              },
-              child: Text('Validate'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                getPhoneNumber('+15417543010');
-              },
-              child: Text('Update'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                formKey.currentState?.save();
-              },
-              child: Text('Save'),
-            ),
-          ],
+              ElevatedButton(
+                onPressed: () {
+                  formKey.currentState?.validate();
+                },
+                child: Text('Validate'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  getPhoneNumber('+15417543010');
+                },
+                child: Text('Update'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  formKey.currentState?.save();
+                },
+                child: Text('Save'),
+              ),
+            ],
+          ),
         ),
       ),
     );

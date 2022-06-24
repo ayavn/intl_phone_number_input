@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Demo',
+      title: 'Demo 2',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -30,41 +30,43 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      child: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            InternationalPhoneNumberInput(
-              onInputChanged: (PhoneNumber number) {
-                print(number.phoneNumber);
-              },
-              onInputValidated: (bool value) {
-                print(value);
-              },
-              ignoreBlank: true,
-              autoValidateMode: AutovalidateMode.disabled,
-              initialValue: PhoneNumber(isoCode: 'NG'),
-              textFieldController: controller,
-              inputBorder: OutlineInputBorder(),
-              selectorConfig: SelectorConfig(
-                selectorType: PhoneInputSelectorType.DIALOG,
+    return Scaffold(
+      body: Form(
+        key: formKey,
+        child: Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              InternationalPhoneNumberInput(
+                onInputChanged: (PhoneNumber number) {
+                  print(number.phoneNumber);
+                },
+                onInputValidated: (bool value) {
+                  print(value);
+                },
+                ignoreBlank: true,
+                autoValidateMode: AutovalidateMode.disabled,
+                initialValue: PhoneNumber(isoCode: 'NG'),
+                textFieldController: controller,
+                inputBorder: OutlineInputBorder(),
+                selectorConfig: SelectorConfig(
+                  selectorType: PhoneInputSelectorType.DIALOG,
+                ),
               ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                formKey.currentState.validate();
-              },
-              child: Text('Validate'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                getPhoneNumber('+15417543010');
-              },
-              child: Text('Update'),
-            ),
-          ],
+              ElevatedButton(
+                onPressed: () {
+                  formKey.currentState.validate();
+                },
+                child: Text('Validate'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  getPhoneNumber('+15417543010');
+                },
+                child: Text('Update'),
+              ),
+            ],
+          ),
         ),
       ),
     );

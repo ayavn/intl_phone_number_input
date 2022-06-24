@@ -36,6 +36,11 @@ enum PhoneInputSelectorType { DROPDOWN, BOTTOM_SHEET, DIALOG }
 /// [countries] accepts list of string on Country isoCode, if specified filters
 /// available countries to match the [countries] specified.
 class InternationalPhoneNumberInput extends StatefulWidget {
+  // Custom
+  final Color? backgroundColor;
+  final double? height;
+  final double? radiusSelector;
+  // Original
   final SelectorConfig selectorConfig;
 
   final ValueChanged<PhoneNumber>? onInputChanged;
@@ -90,10 +95,13 @@ class InternationalPhoneNumberInput extends StatefulWidget {
       {Key? key,
       this.selectorConfig = const SelectorConfig(),
       required this.onInputChanged,
+      this.backgroundColor = Colors.white,
+      this.radiusSelector,
       this.onInputValidated,
       this.onSubmit,
       this.onFieldSubmitted,
       this.validator,
+      this.height,
       this.onSaved,
       this.fieldKey,
       this.textFieldController,
@@ -391,32 +399,45 @@ class _InputWidgetView
     final dialCode = state.country?.dialCode ?? '';
 
     return Container(
+      height: widget.height,
+      decoration: BoxDecoration(
+        color: widget.backgroundColor,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           if (!widget.selectorConfig.setSelectorButtonAsPrefixIcon) ...[
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                SelectorButton(
-                  country: state.country,
-                  countries: state.countries,
-                  onCountryChanged: state.onCountryChanged,
-                  selectorConfig: widget.selectorConfig,
-                  selectorTextStyle: widget.selectorTextStyle,
-                  searchBoxDecoration: widget.searchBoxDecoration,
-                  locale: state.locale,
-                  isEnabled: widget.isEnabled,
-                  autoFocusSearchField: widget.autoFocusSearch,
-                  isScrollControlled: widget.countrySelectorScrollControlled,
-                ),
-                SizedBox(
-                  height: state.selectorButtonBottomPadding,
-                ),
-              ],
+            Container(
+              height: widget.height,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(widget.radiusSelector ?? 0),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  SelectorButton(
+                    country: state.country,
+                    countries: state.countries,
+                    onCountryChanged: state.onCountryChanged,
+                    selectorConfig: widget.selectorConfig,
+                    selectorTextStyle: widget.selectorTextStyle,
+                    searchBoxDecoration: widget.searchBoxDecoration,
+                    locale: state.locale,
+                    isEnabled: widget.isEnabled,
+                    autoFocusSearchField: widget.autoFocusSearch,
+                    isScrollControlled: widget.countrySelectorScrollControlled,
+                  ),
+                  SizedBox(
+                    height: state.selectorButtonBottomPadding,
+                  ),
+                ],
+              ),
             ),
-            SizedBox(width: widget.spaceBetweenSelectorAndTextField),
+            Container(
+              width: widget.spaceBetweenSelectorAndTextField,
+              height: widget.height,
+            ),
           ],
           Flexible(
             child: TextFormField(
