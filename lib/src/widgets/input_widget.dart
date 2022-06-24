@@ -41,6 +41,7 @@ class InternationalPhoneNumberInput extends StatefulWidget {
   final Color? backgroundColorSelector;
   final Color? backgroundColorInputField;
   final double? height;
+  final double? cursorHeight;
   final double? radiusSelector;
   // Original
   final SelectorConfig selectorConfig;
@@ -100,6 +101,7 @@ class InternationalPhoneNumberInput extends StatefulWidget {
       this.backgroundColor = Colors.white,
       this.backgroundColorSelector = Colors.white,
       this.backgroundColorInputField = Colors.white,
+      this.cursorHeight,
       this.radiusSelector,
       this.onInputValidated,
       this.onSubmit,
@@ -452,6 +454,7 @@ class _InputWidgetView
                     BorderRadius.circular(widget.radiusSelector ?? 0.0),
               ),
               child: TextFormField(
+                cursorHeight: widget.cursorHeight,
                 key: widget.fieldKey ?? Key(TestHelper.TextInputKeyValue),
                 textDirection: TextDirection.ltr,
                 controller: state.controller,
