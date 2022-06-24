@@ -67,6 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     signed: true, decimal: true),
                 inputBorder: OutlineInputBorder(),
                 spaceBetweenSelectorAndTextField: 10,
+                radiusSelector: 10,
                 onSaved: (PhoneNumber number) {
                   print('On Saved: $number');
                 },

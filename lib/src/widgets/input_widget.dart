@@ -446,7 +446,11 @@ class _InputWidgetView
           ],
           Flexible(
             child: Container(
-              color: widget.backgroundColorInputField,
+              decoration: BoxDecoration(
+                color: widget.backgroundColorInputField,
+                borderRadius:
+                    BorderRadius.circular(widget.radiusSelector ?? 0.0),
+              ),
               child: TextFormField(
                 key: widget.fieldKey ?? Key(TestHelper.TextInputKeyValue),
                 textDirection: TextDirection.ltr,
